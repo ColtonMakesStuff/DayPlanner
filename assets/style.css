@@ -71,14 +71,15 @@ border: 3px solid var(--darkBlue);
 /* start detail cards */
 .detailCards {
   position: absolute;
-  right: 8%;
+  left: 51%;
   width: 350px;
   top: 200px;
 }
 .quickViewCard{
  border: 4px solid var(--darkBlue);
   background-color: var(--lightBlue);
-  height: 150px; 
+  height: 150px;
+  border-radius: 12px; 
 }
 .quickView{
   display: flex;
@@ -94,6 +95,10 @@ border: 3px solid var(--darkBlue);
 .eventBreakdown .statusBox{
   height: 42px;
   width: 42px;
+  margin-left: 3px;
+  margin-top: 3px;
+  border-radius: 8px;
+  border: 4px solid var(--darkBlue);
 }
 .statusTitle{
   display: flex;
@@ -157,17 +162,18 @@ border: 3px solid var(--darkBlue);
 .interactiveCard{
   border: 4px solid var(--darkBlue);
   background-color: var(--lightBlue);
-  height: 400px; 
+  height: 410  px; 
   margin-top: 10px;
   display: flex;
   flex-direction: row;
+  border-radius: 12px;
 }
 /* end interactive card */
 
 /* start time cards  */
 .timeCards {
   position: absolute;
-  left: 8%;
+  right: 51%;
   width: 350px;
   top: 200px;
 }
@@ -199,20 +205,25 @@ margin: 0;
   height: 40px;
   padding: 0px; 
   flex-direction: row;
+  border-radius: 32px;
 }
 /* start image cards */
 .imageCard{
-  margin-top: -5px;
-  margin-bottom: -9px;
+  margin-top: 3px;
+  margin-bottom: 2px;
   z-index: -2;
+  border: 0;
+  
 }
 .night img{
   width: 343px;
-  height: 50px;
+  height: 60px;
+  border-radius: 8px;
 }
 .morning img{
   width: 343px;
-  height: 70px;
+  height: 60px;
+  border-radius: 8px;
 }
 /* end image cards */
 
