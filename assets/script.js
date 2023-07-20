@@ -49,10 +49,10 @@ console.log(today.format('h:mm a'));
 
 //sets the current time
 $('.currentTime').html(today.format('h:mm a'));
- hour = today.format('h');
- tod = today.format('a')
+hour = today.format('h');
+tod = today.format('a')
 //test times
- // tod = 'pm'
+//  tod = 'am'
 // hour ='9'
 $('.currentHour').html(hour + tod);
 
@@ -217,7 +217,7 @@ console.log(userData)
 }
 
 function moveThroughCurrentHours(){
-  if (hour < 9 && tod === 'am') {
+  if (hour < 9 && tod === 'am' || hour == 12 && tod === 'am') {
     morning.style.backgroundColor = "yellow";
   } 
   if (hour == 9 && tod === 'am') {
@@ -250,17 +250,17 @@ function moveThroughCurrentHours(){
 
 }
 function moveThroughPastHours(){
-  if (hour > 8 && tod === 'am' || tod === 'pm') {
+  if (hour > 8 && tod === 'am'  && hour != 12|| tod === 'pm') {
     morning.style.backgroundColor = "red";
   }  
-  if (hour > 9 && tod === 'am' || tod === 'pm') {
+  if (hour > 9 && tod === 'am'  && hour != 12|| tod === 'pm') {
     nine.style.backgroundColor = "red";
 
   } 
-  if (hour > 10 && tod === 'am' || tod === 'pm') {
+  if (hour > 10 && tod === 'am'  && hour != 12|| tod === 'pm') {
     ten.style.backgroundColor = "red";
   } 
-  if (hour > 11 && tod === 'am' || tod === 'pm') {
+  if (hour > 11 && tod === 'am'  && hour != 12|| tod === 'pm') {
     eleven.style.backgroundColor = "red";
   } 
   if (hour != 12 && tod === 'pm') {
