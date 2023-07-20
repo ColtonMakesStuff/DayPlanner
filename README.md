@@ -15,7 +15,7 @@
 ### Color-code items based on their status (current, past, future).
 
 ## Known issues
-### In all of my tests locally everything was working fine but now most funtions dont work on posted webpage
+
 ### The planner is not fully responsive.
 ### The styling could be GREATLY improved.
 ### the edit button does not work
@@ -26,5 +26,5 @@
 
 #### Also, feel free to ignore all of my files labeled first try, I wanted to keep them so that I could see in my thought process, and so that I could refer back to them as I finish the project, but they are not active and do not work. Although, if you're curious, I suppose you could look through them... At your own risk, that is... The code is offensively bad...
 
-## also I borrowed some concepts from Tyler Potts on youtube
-## as well as used phind for some concepts that I had no preevious knowledge of 
+### also I borrowed some concepts from Tyler Potts on youtube
+### as well as used phind for some concepts that I had no previous knowledge of 
