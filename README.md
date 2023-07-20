@@ -24,6 +24,12 @@
 ## Apologies
 ### I apologize that this planner is not as polished as my other projects. I was at a science and technology convention in San Francisco for a large part of the week, and did not have the time to complete it to the standard that I normally do. I will update the planner soon to address the known issues.
 
+## page link 
+### https://coltonmakesstuff.github.io/DayPlanner/ Links to an external site.
+
+## screenshot
+## [ScreenShot](<assets/images/screenshot-of-website.png>)
+
 #### Also, feel free to ignore all of my files labeled first try, I wanted to keep them so that I could see in my thought process, and so that I could refer back to them as I finish the project, but they are not active and do not work. Although, if you're curious, I suppose you could look through them... At your own risk, that is... The code is offensively bad...
 
 ### also I borrowed some concepts from Tyler Potts on youtube
