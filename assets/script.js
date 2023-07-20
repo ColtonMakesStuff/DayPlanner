@@ -76,6 +76,7 @@ function saveData() {
     alert('Please fill in all the required fields.');
     return;
   }
+  
 //this is the object that gets saved to local storage
   var userData = {
     title: eventTitle,
@@ -159,11 +160,10 @@ function createElementsFromData() {
     var deleteButton = document.createElement('button');
     deleteButton.className = 'delete';
     deleteButton.textContent = 'delete';
-
+// Remove 
     deleteButton.onclick = function() {
-      listItem.remove(); // Remove the parent list-item div
-      localStorage.removeItem(userData.id); // Remove the item from local storage using the unique identifier (assuming userData.id is the unique identifier)
-    };
+      listItem.remove(); 
+      localStorage.removeItem(userData.id); 
 
     actions.appendChild(editButton);
     actions.appendChild(deleteButton);
