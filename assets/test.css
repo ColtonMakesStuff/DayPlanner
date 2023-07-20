@@ -1,0 +1,53 @@
+
+:root{
+    --primary:  ;
+    --light:  rgb(214, 221, 221)  ;
+    --dark: rgb(0, 100, 100);
+    --danger: red  ;
+    --grey: rgb(138, 138, 138);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+input:not([type="radio"]):not([type="checkbox"]), button {
+    appearance: none;
+    border: none;
+    background: none;
+    cursor: initial;
+}
+body {
+    background: var(--light);
+    color: var(--dark);
+}
+section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5em;
+}
+
+h3 {
+    color: var(--dark);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+}
+h4 {
+    color: var(--grey);
+    font-size: .875rem;
+
+}
+.create-todo input[type="text"] {
+    display: block;
+    width: 100%;
+    font-size: 1.125rem;
+    padding: 1rem 1.5em; color: var(--dark);
+    background-color:lightcyan;
+    border-radius: 0.5rem;
+    
+}
+
+
