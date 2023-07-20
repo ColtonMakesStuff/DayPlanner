@@ -1,47 +1,297 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+ let currentTime = document.querySelector('.currentTime')
+// let nextEvent = document.querySelector('.nextEvent')
+// let currentEvent = document.querySelector('.currentEvent')
 
 
-let menuBtn = document.querySelector(".menuBtn")
-let menuBox = document.querySelector("#menuBox")
+// declaring elements as var
+ let eventList = document.querySelector('.eventList')
 
-menuBox.classList.add("closeMenuBox");
+ let morning = document.querySelector('.morning')
+ let nine = document.querySelector('.nine')
+ let ten = document.querySelector('.ten')
+ let eleven = document.querySelector('.eleven')
+ let twelve = document.querySelector('.twelve')
+ let one = document.querySelector('.one')
+ let two = document.querySelector('.two')
+ let three = document.querySelector('.three')
+ let four = document.querySelector('.four')
+ let afternoon = document.querySelector('.afternoon')
+ let currentHour = document.querySelector('.currentHour')
 
-function openmenuBox () {
-  menuBox.classList.remove("closeMenuBox");
-  menuBtn.classList.add("closeMenuBtn");
-}
-menuBox.addEventListener("mouseleave", function() {
-   closeMenu();
+
+ // loading all stored data on pageload
+ $(document).ready(function() {
+  todos = JSON.parse(localStorage.getItem('todos')) || [];
+  const nameInput = $('#name');
+  const username = localStorage.getItem('username') || '';
+
+  nameInput.val(username);
+
+  nameInput.on('change', function(e) {
+    localStorage.setItem('username', e.target.value);
+  });
+
+  userDataArr = JSON.parse(localStorage.getItem('userData')) || [];
+
+  if (!Array.isArray(userDataArr)) {
+    userDataArr = [];
+  }
+  moveThroughCurrentHours()
+  moveThroughPastHours()
+  createElementsFromData();
 });
-function closeMenu() {
-   menuBox.classList.add("closeMenuBox");
-   menuBtn
-  .classList.remove("closeMenuBtn");
+
+
+//sets day
+var today = dayjs();
+console.log(today.format('MMM D, YYYY'));
+console.log(today.format('h:mm a'));
+
+//sets the current time
+$('.currentTime').html(today.format('h:mm a'));
+ hour = today.format('h');
+ tod = today.format('a')
+//test times
+ // tod = 'pm'
+// hour ='9'
+$('.currentHour').html(hour + tod);
+
+
+ var userDataArr = JSON.parse(localStorage.getItem('userData'))
+ if (!Array.isArray(userDataArr)) {
+  userDataArr = []; // Initialize as an empty array if not already an array
+}
+
+//saves all of the data once save button is clicked
+function saveData() {
+  event.preventDefault();
+  var eventTitle = document.getElementById('event-title-input').value;
+  var eventDescription = document.getElementById('event-description-input').value;
+  var hour = document.getElementById('hour').value;
+  var minutes = document.getElementById('minutes').value;
+  var AMPM = document.getElementById('AM-PM').value;
+  var eventLocation = document.getElementById('event-location-input').value;
+
+  if (eventTitle === '' || eventDescription === '' || hour === 'hour' || minutes === 'minutes' || AMPM === 'AM/PM') {
+    alert('Please fill in all the required fields.');
+    return;
+  }
+//this is the object that gets saved to local storage
+  var userData = {
+    title: eventTitle,
+    description: eventDescription,
+    time: hour + ':' + minutes + ' ' + AMPM,
+    location: eventLocation,
+    hr: hour,
+    min: minutes,
+    ampm: AMPM,
+    createdAt: new Date().getTime(),
+    done: false
+  };
+
+  userDataArr.push(userData); // Add the new object to the array
+
+  localStorage.setItem('userData', JSON.stringify(userDataArr)); // Store the array in local storage
+
+  console.log(userDataArr);
+  document.getElementById('new-todo-form').reset();
+  //this reloads the page so the create element function is called again
+  location.reload();
+}
+
+//this is a very clunky function that adds each list item to the proper pooint on the list, phind helped me do the more tedious bits of this
+function createElementsFromData() {
+  //this is so that they are sorted within each area by when they were created
+  userDataArr.sort(function(a, b) {
+    return a.createdAt - b.createdAt;
+  });
+
+  userDataArr.forEach(function(userData) {
+    var listItem = document.createElement('div');
+    listItem.className = 'list-item';
+
+    var label = document.createElement('label');
+
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+
+    var span = document.createElement('span');
+    span.className = 'done';
+
+    label.appendChild(checkbox);
+    label.appendChild(span);
+
+    var listItemContent = document.createElement('div');
+    listItemContent.className = 'list-item-content';
+
+    var titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.value = userData.title;
+    titleInput.readOnly = true;
+
+    var descriptionInput = document.createElement('input');
+    descriptionInput.type = 'text';
+    descriptionInput.value = userData.description;
+    descriptionInput.readOnly = true;
+
+    var timeInput = document.createElement('input');
+    timeInput.type = 'text';
+    timeInput.value = userData.time;
+    timeInput.readOnly = true;
+
+    var locationInput = document.createElement('input');
+    locationInput.type = 'text';
+    locationInput.value = userData.location;
+    locationInput.readOnly = true;
+
+    listItemContent.appendChild(titleInput);
+    listItemContent.appendChild(descriptionInput);
+    listItemContent.appendChild(timeInput);
+    listItemContent.appendChild(locationInput);
+
+    var actions = document.createElement('div');
+    actions.className = 'actions';
+
+    var editButton = document.createElement('button');
+    editButton.className = 'edit';
+    editButton.textContent = 'edit';
+
+    var deleteButton = document.createElement('button');
+    deleteButton.className = 'delete';
+    deleteButton.textContent = 'delete';
+
+    deleteButton.onclick = function() {
+      listItem.remove(); // Remove the parent list-item div
+      localStorage.removeItem(userData.id); // Remove the item from local storage using the unique identifier (assuming userData.id is the unique identifier)
+    };
+
+    actions.appendChild(editButton);
+    actions.appendChild(deleteButton);
+
+    listItem.appendChild(label);
+    listItem.appendChild(listItemContent);
+    listItem.appendChild(actions);
+
+   
+console.log(userData)
+     if (userData.hr < 9 && userData.ampm === 'AM') {
+       morning.appendChild(listItem);
+     }
+  
+     if (userData.hr == 9 && userData.ampm === 'AM') {
+       nine.appendChild(listItem);
+     }
+    
+     if (userData.hr == 10 && userData.ampm === 'AM') {
+       ten.appendChild(listItem);
+     }
+    
+     if (userData.hr == 11 && userData.ampm === 'AM') {
+       eleven.appendChild(listItem);
+     }
+
+     if (userData.hr == 12 && userData.ampm === 'AM') {
+       twelve.appendChild(listItem);
+     }
+
+     if (userData.hr == 1 && userData.ampm === 'PM') {
+       one.appendChild(listItem);
+     }
+
+     if (userData.hr == 2 && userData.ampm === 'PM') {
+       two.appendChild(listItem);
+     }
+
+     if (userData.hr == 3 && userData.ampm === 'PM') {
+       three.appendChild(listItem);
+     }
+ 
+     if (userData.hr == 4 && userData.ampm === 'PM') {
+       four.appendChild(listItem);
+     }
+     if (userData.hr > 4 && userData.ampm === 'PM') {
+      afternoon.appendChild(listItem);
+    }
+  });
+  
+}
+
+function moveThroughCurrentHours(){
+  if (hour < 9 && tod === 'am') {
+    morning.style.backgroundColor = "yellow";
+  } 
+  if (hour == 9 && tod === 'am') {
+    nine.style.backgroundColor = "yellow";
+  } 
+  if (hour == 10 && tod === 'am') {
+    ten.style.backgroundColor = "yellow";
+  } 
+  if (hour == 11 && tod === 'am') {
+    eleven.style.backgroundColor = "yellow";
+  } 
+  if (hour == 12 && tod === 'pm') {
+    twelve.style.backgroundColor = "yellow";
+  } 
+  if (hour == 1 && tod === 'pm') {
+    one.style.backgroundColor = "yellow";
+  } 
+  if (hour == 2 && tod === 'pm') {
+    two.style.backgroundColor = "yellow";
+  } 
+  if (hour == 3 && tod === 'pm') {
+    three.style.backgroundColor = "yellow";
+  } 
+  if (hour == 4 && tod === 'pm') {
+    four.style.backgroundColor = "yellow";
+  } 
+  if (hour > 4 && hour < 12 && tod === 'pm') {
+    afternoon.style.backgroundColor = "yellow";
+  } 
+
+}
+function moveThroughPastHours(){
+  if (hour > 8 && tod === 'am' || tod === 'pm') {
+    morning.style.backgroundColor = "red";
+  }  
+  if (hour > 9 && tod === 'am' || tod === 'pm') {
+    nine.style.backgroundColor = "red";
+
+  } 
+  if (hour > 10 && tod === 'am' || tod === 'pm') {
+    ten.style.backgroundColor = "red";
+  } 
+  if (hour > 11 && tod === 'am' || tod === 'pm') {
+    eleven.style.backgroundColor = "red";
+  } 
+  if (hour != 12 && tod === 'pm') {
+    twelve.style.backgroundColor = "red";
+  } 
+  if (hour > 1 && hour < 12 && tod === 'pm') {
+    one.style.backgroundColor = "red";
+  } 
+  if (hour > 2 && hour < 12 && tod === 'pm') {
+    two.style.backgroundColor = "red";
+  } 
+  if (hour > 3 && hour < 12 && tod === 'pm') {
+    three.style.backgroundColor = "red";
+  } 
+  if (hour > 4 && hour < 12 && tod === 'pm') {
+    four.style.backgroundColor = "red";
+  } 
+
 }
 
 
 
 
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page
+  // Retrieve the array from local storage and parse it into an array
 
-var today = dayjs();
-console.log(today.format('MMM D, YYYY, h:mm  a'));
+
+  //  function sendTo(timeOfDay, otherTimeOfDay, inputTime)
+  //  if (hour === timeOfDay) 
+
+// i need the events to be sorted by time 
+// i need a function that makes the users inout into an object that contains the location, title, description, time, status, 
+// i need each object to be assigned to a time sectin based on the time that it is due, 
+// i need to convert the user time input into  time
+
