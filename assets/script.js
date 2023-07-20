@@ -163,7 +163,8 @@ function createElementsFromData() {
 // Remove 
     deleteButton.onclick = function() {
       listItem.remove(); 
-      localStorage.removeItem(userData.id); 
+      localStorage.removeItem(userData.id);
+    } 
 
     actions.appendChild(editButton);
     actions.appendChild(deleteButton);
@@ -212,7 +213,7 @@ console.log(userData)
      if (userData.hr > 4 && userData.ampm === 'PM') {
       afternoon.appendChild(listItem);
     }
-  });
+  })
   
 }
 
